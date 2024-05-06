@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>We Barter- Bartering System</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="controller.js" defer></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -18,13 +17,13 @@
         <h1>We Barter-Bartering for Everyone</h1>
         <nav>
             <ul>
-                <li><a href="#" id="homeLink"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#" id="listingsLink"><i class="fas fa-list"></i> Listings</a></li>
+                <li><a href="index.html" id="homeLink"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#" id="messagesLink"><i class="fas fa-envelope"></i> Messages</a></li>
                 <li><a href="#" id="profileLink"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="registration.html" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Login</a></li>
             </ul>
         </nav>
+        <img src="images/hero.jpg" alt="Hero Image" style="width: 100%; height: auto;">
         
     </header>
     <div class="profile-container">
@@ -42,60 +41,16 @@
 
         <section id="listings">
             <h2>Recent Listings</h2>
-            <div class="listing">
-                <img src="images/item1.png" alt="Item 1">
-                <h3>Bicycle</h3>
-                <p>$70</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-            <div class="listing">
-                <img src="images/item2.png" alt="Item 1">
-                <h3>Boat</h3>
-                <p>$10000</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-        
-            <div class="listing">
-                <img src="images/item3.jpg" alt="Item 2">
-                <h3>Pram</h3>
-                <p>$100</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-        
-            <div class="listing">
-                <img src="images/item4.jpg" alt="Item 3">
-                <h3>Antiques</h3>
-                <p>$100</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-            <!-- Second row of listings -->
-            <div class="listing">
-                <img src="images/item5.jpg" alt="Item 5">
-                <h3>Car</h3>
-                <p>$2000</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-            <div class="listing">
-                <img src="images/item6.png" alt="Item 6">
-                <h3>Bike</h3>
-                <p>$500</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-            <div class="listing">
-                <img src="images/item7.jpg" alt="Item 7">
-                <h3>Table</h3>
-                <p>$50</p>
-                <button class="contactSeller">Contact Seller</button>
-            </div>
-            <div class="listing">
-                <img src="images/item8.jpg" alt="Item 8">
-                <h3>Painting</h3>
-                <p>$150</p>
-                <button class="contactSeller">Contact Seller</button>
+            <!-- Listings will be dynamically generated here -->
+            <div id="productInfoContainer" style="display: none;">
+                <h2 id="productName"></h2>
+                <img id="productImage" src="" alt="">
+                <p id="productDescription"></p>
+                <p id="productPrice"></p>
             </div>
         </section>
     </main>
-
+    
     <footer>
         <p>&copy; 2024 We Barter - Bartering for Everyone</p>
     </footer>
@@ -108,7 +63,56 @@
             // Set the username in the profile container
             document.getElementById('loggedInUser').textContent = username;
         }
+
+        // Sample data for listings (you can replace this with your actual data)
+        const listingsData = [
+            { image: 'images/item1.png', title: 'Bicycle', price: '$70' },
+            { image: 'images/item2.png', title: 'Boat', price: '$10000' },
+            { image: 'images/item3.jpg', title: 'Pram', price: '$100' },
+            { image: 'images/item4.jpg', title: 'Antiques', price: '$100' },
+            { image: 'images/item5.jpg', title: 'Car', price: '$2000' },
+            { image: 'images/item6.png', title: 'Bike', price: '$500' },
+            { image: 'images/item7.jpg', title: 'Table', price: '$50' },
+            { image: 'images/item8.jpg', title: 'Painting', price: '$150' }
+        ];
+
+        // Function to generate HTML for each listing
+        function generateListingHTML(listing) {
+            return `
+                <div class="listing">
+                    <img src="${listing.image}" alt="${listing.title}">
+                    <h3>${listing.title}</h3>
+                    <p>${listing.price}</p>
+                    <button class="contactSeller" onclick="showProductInfo('${listing.title}')">Contact Seller</button>
+                </div>
+            `;
+        }
+
+        // Get the listings container
+        const listingsContainer = document.getElementById('listings');
+
+        // Generate HTML for each listing and append to the listings container
+        listingsData.forEach(listing => {
+            listingsContainer.innerHTML += generateListingHTML(listing);
+        });
+
+        // Function to show product information modal
+        function showProductInfo(productName, productImage, productDescription, productPrice) {
+        // Get the elements to display product information
+        const productNameElement = document.getElementById('productName');
+        const productImageElement = document.getElementById('productImage');
+        const productDescriptionElement = document.getElementById('productDescription');
+        const productPriceElement = document.getElementById('productPrice');
+        
+        // Set the product information
+        productNameElement.textContent = productName;
+        productImageElement.src = productImage;
+        productDescriptionElement.textContent = productDescription;
+        productPriceElement.textContent = productPrice;
+        
+        // Show the modal or container with product information
+        document.getElementById('productInfoContainer').style.display = 'block';
+}
     </script>
-      
 </body>
 </html>
