@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwapU - Bartering System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="controller.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>SwapU - Bartering System</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="homeLink">Home</a></li>
+                <li><a href="#" id="listingsLink">Listings</a></li>
+                <li><a href="#" id="messagesLink">Messages</a></li>
+                <li><a href="#" id="profileLink">Profile</a></li>
+                <li><a href="#" id="logoutLink">Log Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="search">
+            <h2>Search Listings</h2>
+            <form action="#" method="GET" id="searchForm">
+                <input type="text" name="keyword" id="searchKeyword" placeholder="Search...">
+                <button type="submit" id="searchButton">Search</button>
+            </form>
+        </section>
+
+        <section id="listings">
+            <h2>Recent Listings</h2>
+            <div class="listing">
+                <img src="item1.jpg" alt="Item 1">
+                <h3>Item Name</h3>
+                <p>Description of the item. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+            <!-- More listings go here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SwapU - Bartering System</p>
+    </footer>
+</body>
+</html>
