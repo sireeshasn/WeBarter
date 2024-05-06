@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwapU - Bartering System</title>
+    <title>We Barter- Bartering System</title>
     <link rel="stylesheet" href="styles.css">
     <script src="controller.js" defer></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <header>
-        <h1>SwapU - Bartering System</h1>
+        <div class="logo">
+            <img src="images/logo.png" alt="logo">
+        </div>
+        <h1>We Barter-Bartering for Everyone</h1>
         <nav>
             <ul>
-                <li><a href="#" id="homeLink">Home</a></li>
-                <li><a href="#" id="listingsLink">Listings</a></li>
-                <li><a href="#" id="messagesLink">Messages</a></li>
-                <li><a href="#" id="profileLink">Profile</a></li>
-                <li><a href="#" id="logoutLink">Log Out</a></li>
+                <li><a href="#" id="homeLink"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" id="listingsLink"><i class="fas fa-list"></i> Listings</a></li>
+                <li><a href="#" id="messagesLink"><i class="fas fa-envelope"></i> Messages</a></li>
+                <li><a href="#" id="profileLink"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="registration.html" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Login</a></li>
             </ul>
         </nav>
+        
     </header>
-
+    <div class="profile-container">
+        <i class="fas fa-user"></i>
+        <span>Welcome, <span id="loggedInUser"></span></span>
+    </div>
     <main>
         <section id="search">
             <h2>Search Listings</h2>
@@ -33,17 +43,72 @@
         <section id="listings">
             <h2>Recent Listings</h2>
             <div class="listing">
-                <img src="item1.jpg" alt="Item 1">
-                <h3>Item Name</h3>
-                <p>Description of the item. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <img src="images/item1.png" alt="Item 1">
+                <h3>Bicycle</h3>
+                <p>$70</p>
                 <button class="contactSeller">Contact Seller</button>
             </div>
-            <!-- More listings go here -->
+            <div class="listing">
+                <img src="images/item2.png" alt="Item 1">
+                <h3>Boat</h3>
+                <p>$10000</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+        
+            <div class="listing">
+                <img src="images/item3.jpg" alt="Item 2">
+                <h3>Pram</h3>
+                <p>$100</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+        
+            <div class="listing">
+                <img src="images/item4.jpg" alt="Item 3">
+                <h3>Antiques</h3>
+                <p>$100</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+            <!-- Second row of listings -->
+            <div class="listing">
+                <img src="images/item5.jpg" alt="Item 5">
+                <h3>Car</h3>
+                <p>$2000</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+            <div class="listing">
+                <img src="images/item6.png" alt="Item 6">
+                <h3>Bike</h3>
+                <p>$500</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+            <div class="listing">
+                <img src="images/item7.jpg" alt="Item 7">
+                <h3>Table</h3>
+                <p>$50</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
+            <div class="listing">
+                <img src="images/item8.jpg" alt="Item 8">
+                <h3>Painting</h3>
+                <p>$150</p>
+                <button class="contactSeller">Contact Seller</button>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 SwapU - Bartering System</p>
+        <p>&copy; 2024 We Barter - Bartering for Everyone</p>
     </footer>
+    <script>
+        // Get the username from local storage or wherever it's stored after login/registration
+        const username = localStorage.getItem('username');
+
+        // Check if the username is available
+        if (username) {
+            // Set the username in the profile container
+            document.getElementById('loggedInUser').textContent = username;
+        }
+    </script>
+      
 </body>
 </html>
