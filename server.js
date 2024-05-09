@@ -1,7 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Import cors module
+const cors = require('cors');
+const http = require('http');
+const socketIo = require('socket.io');
+const path = require('path'); // Import the path module
+
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,15 +22,6 @@ mongoose.connect('mongodb+srv://sireesha2622:Siri12345@cluster0.ekefhyn.mongodb.
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-// Define user schema and model
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String
-});
-
-const User = mongoose.model('User', userSchema);
-
 // Middleware
 app.use(bodyParser.json());
 
@@ -34,33 +30,37 @@ app.get('/', (req, res) => {
   res.send('Welcome to the User Registration API');
 });
 
-// Route handler for user registration
-app.post('/register', async (req, res) => {
-  try {
-    // Extract username, email, and password from request body
-    const { username, email, password } = req.body;
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-    // Check if user with the same email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: 'User with this email already exists' });
-    }
+// Route handler for user-related endpoints
+app.use('/api/users', userRoutes);
 
-    // Create new user
-    const newUser = new User({ username, email, password });
+// Create an HTTP server instance
+const server = http.createServer(app);
 
-    // Save new user to the database
-    await newUser.save();
+// Initialize Socket.IO
+const io = socketIo(server);
 
-    // Return success response with username
-    res.status(201).json({ message: 'User registered successfully', username });
-  } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+// Socket.IO event handlers
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Handle incoming chat messages
+  socket.on('chat message', (message) => {
+    console.log('Message:', message);
+
+    // Broadcast the message to all connected clients
+    io.emit('chat message', message);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
 });
 
-// Start server
-app.listen(PORT, () => {
+// Start the server
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

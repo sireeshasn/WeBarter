@@ -31,13 +31,15 @@
         <span>Welcome, <span id="loggedInUser"></span></span>
     </div>
     <main>
-        <section id="search">
-            <h2>Search Listings</h2>
-            <form action="#" method="GET" id="searchForm">
-                <input type="text" name="keyword" id="searchKeyword" placeholder="Search...">
-                <button type="submit" id="searchButton">Search</button>
-            </form>
-        </section>
+            <section id="search">
+                <h2>Search Listings</h2>
+                <form action="#" method="GET" id="searchForm" onsubmit="event.preventDefault(); SearchFeature();">
+                    <input type="text" name="keyword" id="searchKeyword" placeholder="Search...">
+                    <button type="submit" id="searchButton">Search</button>
+                </form>
+            </section>
+            
+   
 
         <section id="listings">
             <h2>Recent Listings</h2>
@@ -65,7 +67,7 @@
         }
 
         // Sample data for listings (you can replace this with your actual data)
-        const listingsData = [
+        let listingsData = [
             { image: 'images/item1.png', title: 'Bicycle', price: '$70' },
             { image: 'images/item2.png', title: 'Boat', price: '$10000' },
             { image: 'images/item3.jpg', title: 'Pram', price: '$100' },
@@ -76,43 +78,67 @@
             { image: 'images/item8.jpg', title: 'Painting', price: '$150' }
         ];
 
+        // Function to add a new listing
+        function addListing(newListing) {
+            listingsData.push(newListing);
+            updateListingsUI();
+        }
+
+        // Function to update the UI with listings data
+        // Function to update the UI with listings data
+        // Function to update the UI with listings data
+        function updateListingsUI(filteredListings) {
+            const listingsContainer = document.getElementById('listings');
+            listingsContainer.innerHTML = '';
+            const listingsToDisplay = filteredListings || listingsData;
+            listingsToDisplay.forEach(listing => {
+                listingsContainer.innerHTML += generateListingHTML(listing);
+            });
+        }
+
+
+
+        // Function to search listings
+        function SearchFeature() {
+            const searchKeyword = document.getElementById('searchKeyword').value.toLowerCase();
+            const filteredListings = listingsData.filter(listing =>
+                listing.title.toLowerCase().includes(searchKeyword)
+            );
+            updateListingsUI(filteredListings);
+        }
+
+
         // Function to generate HTML for each listing
         function generateListingHTML(listing) {
             return `
-                <div class="listing">
-                    <img src="${listing.image}" alt="${listing.title}">
-                    <h3>${listing.title}</h3>
-                    <p>${listing.price}</p>
-                    <button class="contactSeller" onclick="showProductInfo('${listing.title}')">Contact Seller</button>
-                </div>
+                <a href="product.html?data=${encodeURIComponent(JSON.stringify(listing))}" id="myLink">
+                    <div class="listing">
+                        <img src="${listing.image}" alt="${listing.title}">
+                        <h3>${listing.title}</h3>
+                        <p>${listing.price}</p>
+                        <button class="contactSeller" onclick="showProductInfo('${listing.title}')">Contact Seller</button>
+                    </div>
+                </a>
             `;
         }
 
-        // Get the listings container
-        const listingsContainer = document.getElementById('listings');
-
-        // Generate HTML for each listing and append to the listings container
-        listingsData.forEach(listing => {
-            listingsContainer.innerHTML += generateListingHTML(listing);
-        });
-
         // Function to show product information modal
         function showProductInfo(productName, productImage, productDescription, productPrice) {
-        // Get the elements to display product information
-        const productNameElement = document.getElementById('productName');
-        const productImageElement = document.getElementById('productImage');
-        const productDescriptionElement = document.getElementById('productDescription');
-        const productPriceElement = document.getElementById('productPrice');
-        
-        // Set the product information
-        productNameElement.textContent = productName;
-        productImageElement.src = productImage;
-        productDescriptionElement.textContent = productDescription;
-        productPriceElement.textContent = productPrice;
-        
-        // Show the modal or container with product information
-        document.getElementById('productInfoContainer').style.display = 'block';
-}
+            const productNameElement = document.getElementById('productName');
+            const productImageElement = document.getElementById('productImage');
+            const productDescriptionElement = document.getElementById('productDescription');
+            const productPriceElement = document.getElementById('productPrice');
+            
+            productNameElement.textContent = productName;
+            productImageElement.src = productImage;
+            productDescriptionElement.textContent = productDescription;
+            productPriceElement.textContent = productPrice;
+            
+            document.getElementById('productInfoContainer').style.display = 'block';
+        }
+
+        // Initialize UI
+        updateListingsUI();
     </script>
 </body>
 </html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: antiquewhite !important;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .card-div {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            /* Add padding for spacing */
+            margin-top: 20px;
+            /* Add margin for spacing */
+        }
+
+        .card {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+            gap: 30px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .card-content {
+            padding: 15px;
+            flex: 1;
+            /* Allow content to grow */
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 8px;
+
+        }
+
+        .card-price {
+            color: #333;
+            font-size: 20px;
+
+        }
+
+        .card-description {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            /* Reduce font size for description */
+            line-height: 1.4;
+            /* Improve readability with slightly increased line height */
+            margin-top: 10px;
+            /* Add margin for spacing */
+
+        }
+
+        .message {
+            width: 200px;
+            padding: 15px 32px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            border: 1px solid black;
+            background-color: black;
+            color: white;
+            font-weight: 500;
+            border-radius: 10px;
+            font-size: 17px;
+            transition: transform 1.5s ease-in-out, background-color 0.5s;
+            text-align: center;
+            /* Center text */
+        }
+
+        .message:hover {
+            background-color: #ff4d4d;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1 class="card-title"></h1>
+    </div>
+    <div class="card-div">
+
+        <div class="card">
+            <div>
+
+                <div>
+
+                    <img class="card-image" src="" alt="Item Image">
+                </div>
+                <div class="card-content">
+
+                    <p class="card-price"></p>
+
+                </div>
+            </div>
+            <div>
+
+                <p class="card-description"></p>
+            </div>
+
+        </div>
+        <div class="message" role="button">
+            Contact Seller
+        </div>
+    </div>
+
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const data = JSON.parse(decodeURIComponent(urlParams.get('data')));
+        const cardImage = document.querySelector('.card-image');
+        const cardTitle = document.querySelector('.card-title');
+        const cardPrice = document.querySelector('.card-price');
+        const cardDesc = document.querySelector('.card-description')
+        cardImage.src = data.image;
+        cardTitle.textContent = data.title;
+        cardPrice.textContent = data.price;
+        cardDesc.textContent = data.description
+        console.log(data);
+    </script>
+</body>
+
+</html>
